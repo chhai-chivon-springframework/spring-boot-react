@@ -56,7 +56,7 @@ module.exports = {
     },
     devServer: {
         contentBase: PUBLIC_DIR,
-        port: 8080
+        port: 8000
     },
     plugins: [
         new ExtractTextPlugin("styles.css"),

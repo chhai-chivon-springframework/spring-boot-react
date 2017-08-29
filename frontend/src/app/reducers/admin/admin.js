@@ -5,7 +5,7 @@ import {
     GET_MERCHANT_DETAIL_FAIL,
     MEMBER_LIST_PRODUCT_SUCCESS,
     MEMBER_LIST_PRODUCT_FAIL
-} from './../../actions/admin';
+} from '../../actions/test/admin';
 
 export function adminBlockMerchantReducer(state = [{}] , action){
     switch (action.type){

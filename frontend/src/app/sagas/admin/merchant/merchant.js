@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { FILTER_MEMBERS_SUCCESS, FILTER_MEMBERS_FAIL } from '../../../actions/admin/merchant/merchant';
+import { FILTER_MEMBERS_SUCCESS, FILTER_MEMBERS_FAIL } from '../../../actions/test/admin/merchant/merchant';
 import { getMerchants } from './../../../api/admin/merchant/merchant';
 
 export function* fetchMerchantsSaga(action){

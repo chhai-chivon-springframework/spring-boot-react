@@ -10,7 +10,7 @@ import {
 
     FETCH_MEMBER_SUCCESS,
     FETCH_MEMBER_FAIL
-} from './../../actions/member';
+} from '../../actions/test/member';
 
 /* TO GET MEMBER IN DETAIL */
 export function getMemberDetail(state = [{}], action) {

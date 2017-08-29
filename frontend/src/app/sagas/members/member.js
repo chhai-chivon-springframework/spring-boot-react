@@ -11,7 +11,7 @@ import {
 
     FETCH_MEMBER_SUCCESS,
     FETCH_MEMBER_FAIL
-} from './../../actions/member';
+} from '../../actions/test/member';
 import {
     apiGetMemberDetail,
     apiPromoteMember,

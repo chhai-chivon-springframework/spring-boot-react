@@ -8,7 +8,7 @@ import {
 
     MEMBER_LIST_PRODUCT_SUCCESS,
     MEMBER_LIST_PRODUCT_FAIL
-} from './../../actions/admin';
+} from '../../actions/test/admin';
 
 import {
     adminBlockMerchantApi,

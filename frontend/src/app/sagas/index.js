@@ -11,18 +11,18 @@ import {
     VERIFY_SOCIAL_ACCOUNT_PHONE,
     USER_LOG_OUT,
     SEND_CODE_AGAIN
-} from './../actions/user';
+} from '../actions/test/user';
 import {
     ADMIN_BLOCK_MERCHANT,
     GET_MERCHANT_DETAIL,
     MEMBER_LIST_PRODUCT
-} from './../actions/admin';
+} from '../actions/test/admin';
 import{
     GET_MEMBER_DETAIL,
     PROMOTE_MEMBER,
     CHANGE_MEMBER_STATUS,
     FETCH_MEMBER
-} from './../actions/member';
+} from '../actions/test/member';
 
 import {
     doSendMailOrPhone,
@@ -42,7 +42,7 @@ import {
 } from './members/member';
 
 
-import { FILTER_MEMBERS } from './../actions/admin/merchant/merchant';
+import { FILTER_MEMBERS } from '../actions/test/admin/merchant/merchant';
 import { fetchMerchantsSaga } from './admin/merchant/merchant';
 import {
     adminBlockMerchantSaga,

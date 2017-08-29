@@ -16,7 +16,7 @@ import {
         USER_LOG_OUT_FAIL,
         SEND_CODE_AGAIN_SUCCESS,
         SEND_CODE_AGAIN_FAIL
-    } from './../../actions/user';
+    } from '../../actions/test/user';
 import {
     apiSendMailOrPhone,
     apiSetNewPassword,

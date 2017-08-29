@@ -27,7 +27,7 @@ import {
     CLOSE_FORGET_PASSWORD,
     OPEN_NEW_PASSWORD,
     CLOSE_NEW_PASSWORD
-} from './../../actions/user';
+} from '../../actions/test/user';
 /* This function is used to send email or phone number when user forget password */
 export function sendEmailOrPhone(state = [{}], action) {
     switch (action.type) {
