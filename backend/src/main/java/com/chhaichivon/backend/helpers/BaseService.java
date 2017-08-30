@@ -1,9 +1,8 @@
 package com.chhaichivon.backend.helpers;
 
 
-import com.chhaichivon.backend.utils.Pagination;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * AUTHOR : CHHAI CHIVON
@@ -12,9 +11,9 @@ import java.util.List;
  * TIME   : 2:24 PM
  */
 public interface  BaseService<T> {
-    List<T> findAll(Pagination pagination);
+    Page<T> findAll(Pageable pageable);
     T findById(long id);
-    boolean save(T t);
-    boolean update(T t);
-    boolean delete(long id);
+    T save(T t);
+    T update(T t);
+    void delete(long id);
 }

@@ -6,34 +6,30 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * AUTHOR : CHHAI CHIVON
  * EMAIL  : chhaichivon1995@gmail.com
- * DATE   : 8/28/2017
- * TIME   : 2:28 PM
+ * DATE   : 8/30/2017
+ * TIME   : 9:47 AM
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_product")
-public class Product implements Serializable{
-
+@Table(name = "tb_category")
+public class Category implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
-    private String productName;
+    private String categoryName;
 
     @Column(nullable = false)
-    private String price;
+    private String description;
 
-    @Column(nullable = false)
-    private String image;
-
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Product> products;
 }

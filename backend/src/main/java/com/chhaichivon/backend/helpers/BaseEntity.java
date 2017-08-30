@@ -15,7 +15,6 @@ import java.io.Serializable;
  * DATE   : 8/28/2017
  * TIME   : 2:22 PM
  */
-
 @Data
 @MappedSuperclass
 public abstract class BaseEntity  implements Serializable {
@@ -23,4 +22,5 @@ public abstract class BaseEntity  implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("ID")
     private long id;
+
 }

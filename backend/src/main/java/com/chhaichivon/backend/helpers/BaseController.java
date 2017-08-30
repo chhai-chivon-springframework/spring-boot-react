@@ -1,5 +1,6 @@
 package com.chhaichivon.backend.helpers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -34,7 +35,9 @@ public abstract class BaseController<T> {
     }*/
 
     private Map<String, Object> mapJson(T object, HttpStatus status, String message) {
-        map.put("DATA", object);
+        if(object != null){
+            map.put("DATA", object);
+        }
         map.put("STATUS", status);
         map.put("MESSAGE", message);
         return map;
@@ -56,6 +59,15 @@ public abstract class BaseController<T> {
             map = mapJson(null, HttpStatus.NOT_FOUND, MESSAGE_FAILURE);
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Page<T>> responseJson(Page<T> objects) {
+        /*if (objects.hasContent()) {
+            map = mapJson(T, HttpStatus.OK, MESSAGE_SUCCESS);
+        } else {
+            map = mapJson(null, HttpStatus.NOT_FOUND, MESSAGE_FAILURE);
+        }*/
+        return new ResponseEntity<>(objects, HttpStatus.OK);
     }
 
 }
