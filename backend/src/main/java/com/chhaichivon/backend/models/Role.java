@@ -6,36 +6,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * AUTHOR : CHHAI CHIVON
  * EMAIL  : chhaichivon1995@gmail.com
  * DATE   : 8/30/2017
- * TIME   : 9:47 AM
+ * TIME   : 4:32 PM
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_role")
+public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
-    private String categoryName;
+    private String roleName;
 
     @Column(nullable = false)
     private String description;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    protected Category parentCategory;
-
-    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
-    protected Set<Category> children;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Product> products;
 }
