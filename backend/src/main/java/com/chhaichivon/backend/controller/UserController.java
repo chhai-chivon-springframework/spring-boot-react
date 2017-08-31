@@ -63,7 +63,7 @@ public class UserController extends BaseController<User> {
         User user = new User();
         try {
             if (userForm != null) {
-                user.setUserName(userForm.getUserName());
+                user.setUsername(userForm.getUserName());
                 user.setEmail(userForm.getEmail());
                 user.setPassword(userForm.getPassword());
                 if (user != null) {
@@ -83,7 +83,7 @@ public class UserController extends BaseController<User> {
         try {
             user = userService.findById(id);
             if (userForm != null) {
-                user.setUserName(userForm.getUserName());
+                user.setUsername(userForm.getUserName());
                 user.setEmail(userForm.getEmail());
                 user.setPassword(userForm.getPassword());
                 userService.update(user);

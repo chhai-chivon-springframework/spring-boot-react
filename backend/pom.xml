@@ -20,6 +20,7 @@
 	<properties>
 		<main.basedir>${project.parent.basedir}</main.basedir>
 		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+		<springsecurity.version>4.0.1.RELEASE</springsecurity.version>
 	</properties>
 
 	<dependencies>
@@ -71,6 +72,17 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springsecurity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springsecurity.version}</version>
 		</dependency>
 	</dependencies>
 

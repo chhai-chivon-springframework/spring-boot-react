@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * AUTHOR : CHHAI CHIVON
@@ -21,11 +22,9 @@ import java.io.Serializable;
 public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
+    private String name;
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
-    @Column(nullable = false)
-    private String roleName;
-
-    @Column(nullable = false)
-    private String description;
 }

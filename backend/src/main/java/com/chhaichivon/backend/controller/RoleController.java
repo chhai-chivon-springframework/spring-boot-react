@@ -61,8 +61,7 @@ public class RoleController extends BaseController<Role> {
         Role role = new Role();
         try {
             if (roleForm != null) {
-                role.setRoleName(roleForm.getRoleName());
-                role.setDescription(roleForm.getDescription());
+                role.setName(roleForm.getRoleName());
                 if (role != null) {
                     roleService.save(role);
                 }
@@ -80,8 +79,7 @@ public class RoleController extends BaseController<Role> {
         try {
             role = roleService.findById(id);
             if (roleForm != null) {
-                role.setRoleName(roleForm.getRoleName());
-                role.setDescription(roleForm.getDescription());
+                role.setName(roleForm.getRoleName());
                 roleService.update(role);
             }
         } catch (Exception e) {

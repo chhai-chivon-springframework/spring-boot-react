@@ -9,4 +9,5 @@ import com.chhaichivon.backend.helpers.BaseService;
  * TIME   : 4:35 PM
  */
 public interface UserService<User> extends BaseService<User> {
+    User findByUsername(String username);
 }

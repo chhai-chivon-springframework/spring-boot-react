@@ -1,11 +1,17 @@
 package com.chhaichivon.backend.services;
 
+import com.chhaichivon.backend.models.Role;
 import com.chhaichivon.backend.models.User;
+import com.chhaichivon.backend.repository.RoleRepository;
 import com.chhaichivon.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * AUTHOR : CHHAI CHIVON
@@ -18,6 +24,10 @@ public class UserServiceImpl implements UserService<User> {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Page<User> findAll(Pageable pageable) {
@@ -31,6 +41,10 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public User save(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
 
@@ -42,5 +56,10 @@ public class UserServiceImpl implements UserService<User> {
     @Override
     public void delete(long id) {
         userRepository.delete(id);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
