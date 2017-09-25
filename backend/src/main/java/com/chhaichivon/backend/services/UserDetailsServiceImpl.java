@@ -22,6 +22,7 @@ import java.util.Set;
  * DATE   : 8/31/2017
  * TIME   : 8:55 AM
  */
+/*
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -48,3 +49,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 }
+*/

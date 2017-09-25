@@ -1,5 +1,6 @@
 package com.chhaichivon.backend.models;
 
+import com.chhaichivon.backend.helpers.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,12 +20,25 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_role")
-public class Role implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+public class Role extends BaseEntity{
 
+    private String name;
+/*    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;*/
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+  /*  public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }*/
 }

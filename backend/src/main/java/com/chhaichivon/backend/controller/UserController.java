@@ -1,9 +1,6 @@
 package com.chhaichivon.backend.controller;
 
-import com.chhaichivon.backend.forms.RoleForm;
-import com.chhaichivon.backend.forms.UserForm;
 import com.chhaichivon.backend.helpers.BaseController;
-import com.chhaichivon.backend.models.Role;
 import com.chhaichivon.backend.models.User;
 import com.chhaichivon.backend.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,17 +55,11 @@ public class UserController extends BaseController<User> {
 
 
     @RequestMapping(value = "/users", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody UserForm userForm) {
+    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody User user) {
         map = new HashMap<>();
-        User user = new User();
         try {
-            if (userForm != null) {
-                user.setUsername(userForm.getUserName());
-                user.setEmail(userForm.getEmail());
-                user.setPassword(userForm.getPassword());
-                if (user != null) {
-                    userService.save(user);
-                }
+            if (user != null) {
+                userService.save(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,21 +68,20 @@ public class UserController extends BaseController<User> {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> updateRole(@PathVariable("id") Long id, @RequestBody UserForm userForm) {
+    public ResponseEntity<Map<String, Object>> updateRole(@PathVariable("id") Long id, @RequestBody User newUser) {
         map = new HashMap<>();
-        User user = null;
+        User oldUser = userService.findById(id);
         try {
-            user = userService.findById(id);
-            if (userForm != null) {
-                user.setUsername(userForm.getUserName());
-                user.setEmail(userForm.getEmail());
-                user.setPassword(userForm.getPassword());
-                userService.update(user);
+            if (oldUser != null) {
+                oldUser.setUsername(newUser.getUsername());
+                oldUser.setEmail(newUser.getEmail());
+                oldUser.setPassword(newUser.getPassword());
+                userService.update(oldUser);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return responseJson(user);
+        return responseJson(oldUser);
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

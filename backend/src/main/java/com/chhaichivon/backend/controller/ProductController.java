@@ -1,8 +1,6 @@
 package com.chhaichivon.backend.controller;
 
-import com.chhaichivon.backend.forms.ProductForm;
 import com.chhaichivon.backend.helpers.BaseController;
-import com.chhaichivon.backend.models.Category;
 import com.chhaichivon.backend.models.Product;
 import com.chhaichivon.backend.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,16 +55,10 @@ public class ProductController extends BaseController<Product> {
 
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody ProductForm productForm) {
+    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody Product product) {
         map = new HashMap<>();
-        Product product = new Product();
-        Category category = new Category();
         try {
-            if (productForm != null) {
-                product.setProductName(productForm.getProName());
-                product.setPrice(productForm.getProName());
-                product.setImage(productForm.getImage());
-                product.setCategory(category);
+            if (product != null) {
                 if (product != null) {
                     productService.save(product);
                 }
@@ -78,21 +70,21 @@ public class ProductController extends BaseController<Product> {
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> updateProduct(@PathVariable("id") Long id, @RequestBody ProductForm productForm) {
+    public ResponseEntity<Map<String, Object>> updateProduct(@PathVariable("id") Long id, @RequestBody Product newProduct) {
         map = new HashMap<>();
-        Product product = null;
+        Product oldProduct = productService.findById(id);
         try {
-            product = productService.findById(id);
-            if (product != null) {
-                product.setProductName(productForm.getProName());
-                product.setPrice(productForm.getPrice());
-                product.setImage(productForm.getImage());
-                productService.update(product);
+            if (oldProduct != null) {
+                oldProduct.setName(newProduct.getName());
+                oldProduct.setImage(newProduct.getImage());
+                oldProduct.setPrice(newProduct.getPrice());
+                oldProduct.setCategory(newProduct.getCategory());
+                productService.update(oldProduct);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return responseJson(product);
+        return responseJson(oldProduct);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

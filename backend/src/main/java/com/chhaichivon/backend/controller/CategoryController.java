@@ -1,9 +1,7 @@
 package com.chhaichivon.backend.controller;
 
-import com.chhaichivon.backend.forms.CategoryForm;
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.Category;
-import com.chhaichivon.backend.models.Product;
 import com.chhaichivon.backend.services.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * AUTHOR : CHHAI CHIVON
@@ -26,7 +22,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping(value = "/api")
-public class CategoryController extends BaseController<Category>{
+public class CategoryController extends BaseController<Category> {
     @Autowired
     private CategoryServiceImpl categoryService;
     public Map<String, Object> map;
@@ -59,18 +55,11 @@ public class CategoryController extends BaseController<Category>{
 
 
     @RequestMapping(value = "/categories", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> saveCategory(@RequestBody CategoryForm categoryForm) {
+    public ResponseEntity<Map<String, Object>> saveCategory(@RequestBody Category category) {
         map = new HashMap<>();
-        Category category = new Category();
-        Set<Product> products = new HashSet<>();
         try {
-            if (categoryForm != null) {
-                category.setCategoryName(categoryForm.getCategoryName());
-                category.setDescription(categoryForm.getDescription());
-                category.setProducts(products);
-                if (category != null) {
-                    categoryService.save(category);
-                }
+            if (category != null) {
+                categoryService.save(category);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,20 +68,22 @@ public class CategoryController extends BaseController<Category>{
     }
 
     @RequestMapping(value = "/categories/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> updateCategory(@PathVariable("id") Long id, @RequestBody CategoryForm categoryForm) {
+    public ResponseEntity<Map<String, Object>> updateCategory(@PathVariable("id") Long id, @RequestBody Category newCategory) {
         map = new HashMap<>();
-        Category category = new Category();
+        Category oldCategory = categoryService.findById(id);
         try {
-            category = categoryService.findById(id);
-            if (category != null) {
-                category.setCategoryName(categoryForm.getCategoryName());
-                category.setDescription(categoryForm.getDescription());
-                categoryService.update(category);
+            if (oldCategory != null) {
+                oldCategory.setName(newCategory.getName());
+                oldCategory.setDescription(newCategory.getDescription());
+                oldCategory.setChildren(newCategory.getChildren());
+                oldCategory.setParentCategory(newCategory.getParentCategory());
+                oldCategory.setProducts(newCategory.getProducts());
+                categoryService.update(oldCategory);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return responseJson(category);
+        return responseJson(oldCategory);
     }
 
     @RequestMapping(value = "/categories/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -1,5 +1,6 @@
 package com.chhaichivon.backend.models;
 
+import com.chhaichivon.backend.helpers.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,14 +19,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_product")
-public class Product implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Product extends BaseEntity{
 
     @Column(nullable = false)
-    private String productName;
+    private String name;
 
     @Column(nullable = false)
     private String price;
@@ -36,4 +33,36 @@ public class Product implements Serializable{
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

@@ -1,6 +1,5 @@
 package com.chhaichivon.backend.controller;
 
-import com.chhaichivon.backend.forms.RoleForm;
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.Role;
 import com.chhaichivon.backend.services.RoleServiceImpl;
@@ -56,15 +55,11 @@ public class RoleController extends BaseController<Role> {
 
 
     @RequestMapping(value = "/roles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody RoleForm roleForm) {
+    public ResponseEntity<Map<String, Object>> saveProduct(@RequestBody Role role) {
         map = new HashMap<>();
-        Role role = new Role();
         try {
-            if (roleForm != null) {
-                role.setName(roleForm.getRoleName());
-                if (role != null) {
-                    roleService.save(role);
-                }
+            if (role != null) {
+                roleService.save(role);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,19 +68,18 @@ public class RoleController extends BaseController<Role> {
     }
 
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Map<String, Object>> updateRole(@PathVariable("id") Long id, @RequestBody RoleForm roleForm) {
+    public ResponseEntity<Map<String, Object>> updateRole(@PathVariable("id") Long id, @RequestBody Role newRole) {
         map = new HashMap<>();
-        Role role = null;
+        Role oldRole = roleService.findById(id);
         try {
-            role = roleService.findById(id);
-            if (roleForm != null) {
-                role.setName(roleForm.getRoleName());
-                roleService.update(role);
+            if (oldRole != null) {
+                oldRole.setName(newRole.getName());
+                roleService.update(oldRole);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return responseJson(role);
+        return responseJson(oldRole);
     }
 
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
