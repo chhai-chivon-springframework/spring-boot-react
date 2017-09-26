@@ -27,14 +27,14 @@ public class Category extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+  /*  @ManyToOne(fetch = FetchType.LAZY)
     protected Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     protected Set<Category> children;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Product> products;
+    private Set<Product> products;*/
 
 
     public String getName() {
@@ -53,27 +53,4 @@ public class Category extends BaseEntity {
         this.description = description;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-
-    public Set<Category> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Set<Category> children) {
-        this.children = children;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
 }

@@ -2,7 +2,7 @@ package com.chhaichivon.backend.controller;
 
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.User;
-import com.chhaichivon.backend.services.UserServiceImpl;
+import com.chhaichivon.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class UserController extends BaseController<User> {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     public Map<String, Object> map;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

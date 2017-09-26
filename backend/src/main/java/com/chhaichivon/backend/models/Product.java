@@ -30,9 +30,9 @@ public class Product extends BaseEntity{
     @Column(nullable = false)
     private String image;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "categoryId")
-    private Category category;
+    private Category category;*/
 
     public String getName() {
         return name;
@@ -58,11 +58,4 @@ public class Product extends BaseEntity{
         this.image = image;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

@@ -2,7 +2,7 @@ package com.chhaichivon.backend.controller;
 
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.Category;
-import com.chhaichivon.backend.services.CategoryServiceImpl;
+import com.chhaichivon.backend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping(value = "/api")
 public class CategoryController extends BaseController<Category> {
     @Autowired
-    private CategoryServiceImpl categoryService;
+    private CategoryService categoryService;
     public Map<String, Object> map;
 
     @RequestMapping(value = "/categories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -75,9 +75,6 @@ public class CategoryController extends BaseController<Category> {
             if (oldCategory != null) {
                 oldCategory.setName(newCategory.getName());
                 oldCategory.setDescription(newCategory.getDescription());
-                oldCategory.setChildren(newCategory.getChildren());
-                oldCategory.setParentCategory(newCategory.getParentCategory());
-                oldCategory.setProducts(newCategory.getProducts());
                 categoryService.update(oldCategory);
             }
         } catch (Exception e) {

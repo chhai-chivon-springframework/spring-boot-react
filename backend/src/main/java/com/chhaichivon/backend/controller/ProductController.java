@@ -2,7 +2,7 @@ package com.chhaichivon.backend.controller;
 
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.Product;
-import com.chhaichivon.backend.services.ProductServiceImpl;
+import com.chhaichivon.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class ProductController extends BaseController<Product> {
 
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
     public Map<String, Object> map;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -78,7 +78,6 @@ public class ProductController extends BaseController<Product> {
                 oldProduct.setName(newProduct.getName());
                 oldProduct.setImage(newProduct.getImage());
                 oldProduct.setPrice(newProduct.getPrice());
-                oldProduct.setCategory(newProduct.getCategory());
                 productService.update(oldProduct);
             }
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 package com.chhaichivon.backend.configuration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,7 +21,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("/login/login");
         /*registry.addViewController("/API.KSL").setViewName("/admin/login");*/
 /*		registry.addViewController("/LOGIN").setViewName("/admin/login");
-		registry.addViewController("/API.KSL/LOGIN").setViewName("/admin/login");*/
+        registry.addViewController("/API.KSL/LOGIN").setViewName("/admin/login");*/
        /* registry.addViewController("/developer").setViewName("/swagger");*/
         // Errors
      /*   registry.addViewController("/404").setViewName("/error/404");
@@ -31,11 +30,10 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     }
 
 
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedMethods("GET","POST","DELETE","PUT","OPTIONS","PATCH")
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS", "PATCH")
                 .allowedOrigins("*");
     }
 
@@ -60,7 +58,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ViewResolver viewResolver(){
+    public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/pages/");
         resolver.setSuffix(".jsp");
@@ -81,9 +79,9 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 //	    return new CommonsMultipartResolver();
 //	}
 
-    @Bean
+  /*  @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
-    }
+    }*/
 }

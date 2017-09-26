@@ -2,7 +2,7 @@ package com.chhaichivon.backend.controller;
 
 import com.chhaichivon.backend.helpers.BaseController;
 import com.chhaichivon.backend.models.Role;
-import com.chhaichivon.backend.services.RoleServiceImpl;
+import com.chhaichivon.backend.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class RoleController extends BaseController<Role> {
 
     @Autowired
-    private RoleServiceImpl roleService;
+    private RoleService roleService;
     public Map<String, Object> map;
 
     @RequestMapping(value = "/roles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

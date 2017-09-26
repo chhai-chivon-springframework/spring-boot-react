@@ -1,21 +1,5 @@
 package com.chhaichivon.backend.services;
 
-import com.chhaichivon.backend.models.Role;
-import com.chhaichivon.backend.models.User;
-import com.chhaichivon.backend.repository.RoleRepository;
-import com.chhaichivon.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * AUTHOR : CHHAI CHIVON
  * EMAIL  : chhaichivon1995@gmail.com
