@@ -1,69 +1,110 @@
+const webpack = require('webpack');
 const path = require('path');
-const webpack = require("webpack");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const PUBLIC_DIR = path.resolve(__dirname, "public");
-const SRC_DIR = path.resolve(__dirname, "src");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const extractCSS = new ExtractTextPlugin('[name].fonts.css');
+const extractSCSS = new ExtractTextPlugin('[name].styles.css');
+
+const BUILD_DIR = path.resolve(__dirname, 'build');
+const SRC_DIR = path.resolve(__dirname, 'src');
+
+console.log('BUILD_DIR', BUILD_DIR);
+console.log('SRC_DIR', SRC_DIR);
+
 module.exports = {
-    PUBLIC_DIR: PUBLIC_DIR,
-    SRC_DIR: SRC_DIR,
-    entry: [
-        'webpack-dev-server/client?http://localhost:8080',
-        'webpack/hot/only-dev-server',
-        'babel-polyfill',
-        SRC_DIR + '/index.js'
-    ],
-    output: {
-        path: PUBLIC_DIR + '/js',
-        publicPath: '/js',
-        filename: 'bundle.js'
-    },
-    resolve: {
-        extensions: ['', '.jsx', '.scss', '.js', '.json'],
-        modulesDirectories: [
-            'node_modules',
-            path.resolve(__dirname, './node_modules')
-        ]
-    },
-    module: {
-        loaders: [
+  entry: {
+    index: [SRC_DIR + '/index.js']
+	},
+  output: {
+    path: BUILD_DIR,
+    filename: '[name].bundle.js'
+  },
+  watch: true,
+  devServer: {
+    contentBase: BUILD_DIR,
+    //   port: 9001,
+    compress: true,
+    hot: true,
+    open: true
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            presets: ['react', 'env']
+          }
+        }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.(scss)$/,
+        use: ['css-hot-loader'].concat(extractSCSS.extract({
+          fallback: 'style-loader',
+          use: [
             {
-                test: /(\.js|\.jsx)$/,
-                loader: 'babel',
-                exclude: /node_modules/,
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                }
+              loader: 'css-loader',
+              options: { alias: { '../img': '../public/img' } }
             },
             {
-                test: /\.html$/,
-                loader: 'html'
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                loader: 'file?name=assets/[name].[hash].[ext]'
-            },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
+              loader: 'sass-loader'
             }
-        ]
-    },
-    devServer: {
-        contentBase: PUBLIC_DIR,
-        port: 8000
-    },
-    plugins: [
-        new ExtractTextPlugin("styles.css"),
-        new CleanWebpackPlugin(['css/main.css', 'js/bundle.js'], {
-            root: PUBLIC_DIR,
-            verbose: true,
-            dry: false
+          ]
+        }))
+      },
+      {
+        test: /\.css$/,
+        use: extractCSS.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
         })
-    ]
-};
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|ico)$/,
+        use: [
+          {
+            // loader: 'url-loader'
+            loader: 'file-loader',
+            options: {
+              name: './img/[name].[hash].[ext]'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        options: {
+          name: './fonts/[name].[hash].[ext]'
+        }
+      }]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.NamedModulesPlugin(),
+    extractCSS,
+    extractSCSS,
+    new HtmlWebpackPlugin(
+      {
+        inject: true,
+        template: './public/index.html'
+      }
+    ),
+    new CopyWebpackPlugin([
+        {from: './public/img', to: 'img'}
+      ],
+      {copyUnmodified: false}
+    )
+  ]
+}
+;
